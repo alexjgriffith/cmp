@@ -1,0 +1,35 @@
+* CMP
+** Alexander Griffith
+A simple wrapper around SDL2 and Chipmunk. Relies on `SDL_RenderCopy` to write sprites to the appropriate places in the window.
+
+**  Example Game Setup
+
+#+BEGIN_SRC c
+#include <stdio.h>
+#include <stdlib.h>
+#include <SDL.h>
+#include "sdl_setup.h"
+#include "game.h"
+#include "window-details.h"
+
+int main(void){
+  SDL_Window *window;
+  SDL_Renderer *renderer;
+  CMP_Game *game_state;
+  // initialize a SDL Window and Renderer
+  cmp_init_sdl_window(&window,&renderer);
+  // initialize the game state
+  // The second argument can take a function that
+  // initializes the game state, i.e. loads in
+  // sprite sheets and game objects such as characters
+  // and tilesheets
+  game_state = cmp_make_game(renderer, NULL);
+  // Iterate through the game state render capture eval
+  cmp_init_game_loop(&renderer,game_state);
+  // Clean up the game state
+  cmp_destroy_game(game_state);
+  return 0;
+}
+#+END_SRC 
+
+
